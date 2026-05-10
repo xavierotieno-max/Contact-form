@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4ef;
+      --ink: #1e2d4a;
+      --accent: #2e4d7b;
+      --border: #c8cdd8;
+      --focus: #4a7abf;
+      --btn-bg: #1e2d4a;
+      --btn-text: #f5f4ef;
+      --shadow: 0 4px 24px rgba(30,45,74,0.10);
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 52px 56px 48px;
+      max-width: 560px;
+      width: 100%;
+      animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 36px;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .field {
+      margin-bottom: 22px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 7px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 3px rgba(74,122,191,0.13);
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 14px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.97rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    button:hover {
+      background: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    button:active { transform: translateY(0); }
+
+    .arrow {
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+
+    button:hover .arrow { transform: translateX(4px); }
+
+    /* Success message */
+    #success {
+      display: none;
+      text-align: center;
+      padding: 20px 0 4px;
+      color: #2e7d54;
+      font-size: 1rem;
+      font-weight: 500;
+      animation: fadeUp 0.4s both;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>A student creates<br>a contact form,</h1>
+
+    <div class="field">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" placeholder="e.g. Jane Doe" autocomplete="name"/>
+    </div>
+
+    <div class="field">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="e.g. jane@example.com" autocomplete="email"/>
+    </div>
+
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" placeholder="e.g. +254 700 000000" autocomplete="tel"/>
+    </div>
+
+    <div class="field">
+      <label for="subject">Subject Line</label>
+      <input type="text" id="subject" placeholder="What's this about?"/>
+    </div>
+
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" placeholder="Write your message here…"></textarea>
+    </div>
+
+    <button onclick="sendMessage()">
+      Send Message <span class="arrow">→</span>
+    </button>
+
+    <p id="success">✓ Message sent successfully!</p>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const fields = ['fullname','email','phone','subject','message'];
+      const values = fields.map(id => document.getElementById(id).value.trim());
+
+      if (values.some(v => !v)) {
+        alert('Please fill in all fields before sending.');
+        return;
+      }
+
+      document.getElementById('success').style.display = 'block';
+      fields.forEach(id => document.getElementById(id).value = '');
+      setTimeout(() => document.getElementById('success').style.display = 'none', 3500);
+    }
+  </script>
+</body>
+</html>
