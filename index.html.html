@@ -40,7 +40,6 @@
       font-size: 1.45rem;
       font-weight: 700;
       color: var(--accent);
-      letter-spacing: -0.01em;
     }
     .logo span { color: #b5893a; }
     .tagline {
@@ -64,11 +63,6 @@
       padding: 48px 52px 44px;
       max-width: 560px;
       width: 100%;
-      animation: fadeUp 0.55s cubic-bezier(.22,1,.36,1) both;
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
     }
     .card-title {
       font-family: 'Playfair Display', serif;
@@ -132,44 +126,134 @@
     button:active { transform: translateY(0); }
     .arrow { font-size: 1.1rem; transition: transform 0.2s; }
     button:hover .arrow { transform: translateX(4px); }
+
+    /* SUCCESS PAGE — hidden by default */
+    #success-page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    .success-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 56px 52px 52px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .check-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #e8f5ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 28px;
+      animation: popIn 0.5s 0.2s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .check-wrap svg { width: 40px; height: 40px; }
+    .check-wrap svg path {
+      stroke-dasharray: 60;
+      stroke-dashoffset: 60;
+      animation: drawCheck 0.5s 0.6s ease forwards;
+    }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+    .success-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .success-card p {
+      font-size: 0.95rem;
+      color: #7a8fa8;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      background: var(--ink);
+      color: #f5f4ef;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-back:hover { background: var(--accent); transform: translateY(-1px); }
+
     footer { margin-top: 40px; font-size: 0.75rem; color: #a0aec0; letter-spacing: 0.05em; }
   </style>
 </head>
 <body>
+
   <nav>
     <div class="logo">Biko <span>Foundation</span></div>
     <div class="tagline">Empowering Communities</div>
   </nav>
   <div class="divider"></div>
 
-  <div class="card">
-    <h1 class="card-title">Contact Us</h1>
-    <p class="card-sub">We'd love to hear from you. Fill in the form below and we'll get back to you shortly.</p>
+  <!-- FORM PAGE -->
+  <div id="form-page">
+    <div class="card">
+      <h1 class="card-title">Contact Us</h1>
+      <p class="card-sub">We'd love to hear from you. Fill in the form below and we'll get back to you shortly.</p>
 
-    <div class="field">
-      <label for="fullname">Full Name</label>
-      <input type="text" id="fullname" placeholder="e.g. Alfred Kamau" autocomplete="name"/>
-    </div>
-    <div class="field">
-      <label for="email">Email Address</label>
-      <input type="email" id="email" placeholder="e.g. Alfred@example.com" autocomplete="email"/>
-    </div>
-    <div class="field">
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" placeholder="e.g. +254 700 000000" autocomplete="tel"/>
-    </div>
-    <div class="field">
-      <label for="subject">Subject Line</label>
-      <input type="text" id="subject" placeholder="What's this about?"/>
-    </div>
-    <div class="field">
-      <label for="message">Message</label>
-      <textarea id="message" placeholder="Write your message here…"></textarea>
-    </div>
+      <div class="field">
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" placeholder="e.g. Jane Doe" autocomplete="name"/>
+      </div>
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="e.g. jane@example.com" autocomplete="email"/>
+      </div>
+      <div class="field">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g. +254 700 000000" autocomplete="tel"/>
+      </div>
+      <div class="field">
+        <label for="subject">Subject Line</label>
+        <input type="text" id="subject" placeholder="What's this about?"/>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Write your message here…"></textarea>
+      </div>
 
-    <button onclick="sendMessage()">
-      Send Message <span class="arrow">→</span>
-    </button>
+      <button onclick="sendMessage()">
+        Send Message <span class="arrow">→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- SUCCESS PAGE (hidden until form submitted) -->
+  <div id="success-page">
+    <div class="success-card">
+      <div class="check-wrap">
+        <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M14 27 L22 35 L38 18" stroke="#2e7d54" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h1>Form Submitted Successfully!</h1>
+      <p>Thank you for reaching out to the Biko Foundation.<br>We have received your message and will get back to you within 2–3 business days.</p>
+      <button class="btn-back" onclick="goBack()">← Send Another Message</button>
+    </div>
   </div>
 
   <footer>© 2026 Biko Foundation. All rights reserved.</footer>
@@ -178,12 +262,26 @@
     function sendMessage() {
       const fields = ['fullname', 'email', 'phone', 'subject', 'message'];
       const values = fields.map(id => document.getElementById(id).value.trim());
+
       if (values.some(v => !v)) {
         alert('Please fill in all fields before sending.');
         return;
       }
-      window.location.href = '/contact-form/success.html';
+
+      // Hide form, show success
+      document.getElementById('form-page').style.display = 'none';
+      const successPage = document.getElementById('success-page');
+      successPage.style.display = 'flex';
+
+      // Clear the form fields
+      fields.forEach(id => document.getElementById(id).value = '');
+    }
+
+    function goBack() {
+      document.getElementById('success-page').style.display = 'none';
+      document.getElementById('form-page').style.display = 'block';
     }
   </script>
+
 </body>
 </html>
